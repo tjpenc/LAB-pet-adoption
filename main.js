@@ -5,7 +5,7 @@ const pets = [
       color: "Green",
       specialSkill: "Gives sincere apologies.",
       type: "cat",
-      imageUrl: "http://kittentoob.com/wp-content/uploads/2015/06/funny-cat-with-a-towel.jpg",
+      imageUrl: "http://kittentoob.com/wp-content/uploads/2015/06/funny-cat-with-a-towel.jpg"
     },
     {
         id: 2,
@@ -240,3 +240,21 @@ const pets = [
       imageUrl: "http://lsae2.iypcdn.com/static//modules/uploads/photos/language1/dino-live-22.jpg?119"
     }
   ];
+
+  const targetingPetInfo = document.querySelector(".pet-info");
+  let petString = "";
+
+  for (let item of pets) {
+    petString +=  `<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <img width="200px" src="${item.imageUrl}">
+        <h5 class="card-title">${item.name}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+        <p class="card-text">${item.specialSkill}</p>
+      </div>
+    </div>`;
+  }
+
+  targetingPetInfo.innerHTML = petString;
+
+  

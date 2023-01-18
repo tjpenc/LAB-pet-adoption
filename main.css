@@ -1,0 +1,12 @@
+
+
+.pet-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  row-gap: 20px;
+}
+
+.card {
+  flex-basis: 0 0 25%; 
+}
