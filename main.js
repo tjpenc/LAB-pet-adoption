@@ -256,5 +256,77 @@ const pets = [
   }
 
   targetingPetInfo.innerHTML = petString;
+  // if button is pressed, any object with the object property "cat", "dog", or "dino" will need to be filtered 
 
-  
+  const dogButton = document.querySelector("#Dogs");
+  const catButton = document.querySelector("#Cats");
+  const dinoButton = document.querySelector("#Dinosaurs");
+  const unFilter = document.querySelector("#All-pets");
+
+  dogButton.addEventListener("click", function() {
+    petString = "";
+    for (let item of pets) {
+      if (item.type === "dog") {
+        petString += `<div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <img src="${item.imageUrl}">
+          <h5 class="card-title">${item.name}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+          <p class="card-text">${item.specialSkill}</p>
+        </div>
+      </div>`;
+      }
+    } targetingPetInfo.innerHTML = petString;
+  }
+);
+
+catButton.addEventListener("click", function() {
+  petString = "";
+  for (let item of pets) {
+    if (item.type === "cat") {
+      petString += `<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <img src="${item.imageUrl}">
+        <h5 class="card-title">${item.name}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+        <p class="card-text">${item.specialSkill}</p>
+      </div>
+    </div>`;
+    }
+  } targetingPetInfo.innerHTML = petString;
+}
+);
+
+dinoButton.addEventListener("click", function() {
+  petString = "";
+  for (let item of pets) {
+    if (item.type === "dino") {
+      petString += `<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <img src="${item.imageUrl}">
+        <h5 class="card-title">${item.name}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+        <p class="card-text">${item.specialSkill}</p>
+      </div>
+    </div>`;
+    }
+  } targetingPetInfo.innerHTML = petString;
+}
+);
+
+unFilter.addEventListener("click", function() {
+  petString = "";
+  for (let item of pets) {
+    if (item.type) {
+      petString += `<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <img src="${item.imageUrl}">
+        <h5 class="card-title">${item.name}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+        <p class="card-text">${item.specialSkill}</p>
+      </div>
+    </div>`;
+    }
+  } targetingPetInfo.innerHTML = petString;
+}
+);

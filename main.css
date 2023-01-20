@@ -28,6 +28,31 @@ body {
   background-color: #b6b1b6;
 }
 
+.filter-button-area {
+  display: flex;
+  justify-content: space-around;
+}
+
+.filter-button {
+  width: 20%;
+  height: 20%;
+  margin: 1%;
+  padding: 1%;
+  border: solid 2px grey;
+  border-radius: 5%;
+}
+
+#Dogs {
+  background-color: blue;
+}
+
+#Cats {
+  background-color: red;
+}
+
+#Dinosaurs {
+  background-color: green;
+}
 /* 54428E
   9A8C98
   028090
