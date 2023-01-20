@@ -9,4 +9,27 @@
 
 .card {
   flex-basis: 0 0 25%; 
+  text-align: center;
+  background-image: linear-gradient(#54428E, #028090);
+  border: solid 3px grey;
 }
+
+img {
+  width: 100%;
+  border: solid 1px grey;
+  border-radius: 5%;
+}
+
+h5 {
+  margin: 5px;
+}
+
+body {
+  background-color: #b6b1b6;
+}
+
+/* 54428E
+  9A8C98
+  028090
+  95D9C3
+  422040 */

@@ -242,12 +242,12 @@ const pets = [
   ];
 
   const targetingPetInfo = document.querySelector(".pet-info");
+ 
   let petString = "";
-
   for (let item of pets) {
     petString +=  `<div class="card" style="width: 18rem;">
       <div class="card-body">
-        <img width="200px" src="${item.imageUrl}">
+        <img src="${item.imageUrl}">
         <h5 class="card-title">${item.name}</h5>
         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
         <p class="card-text">${item.specialSkill}</p>
