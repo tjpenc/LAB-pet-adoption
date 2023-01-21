@@ -240,9 +240,10 @@ const pets = [
       imageUrl: "https://source.unsplash.com/random/600x400/?Pterodactyl"
     }
   ];
-
+// grab the div with .pet-info
   const targetingPetInfo = document.querySelector(".pet-info");
- 
+// loop through all of the pets, for each pet add the corresponding HTML to the petString string
+// make the innerHTML of the .pet-info equal to petString
   let petString = "";
   for (let item of pets) {
     petString +=  `<div class="card" style="width: 18rem;">
@@ -256,77 +257,140 @@ const pets = [
   }
 
   targetingPetInfo.innerHTML = petString;
+
+  // CREATING PET FILTERS - My initial way
   // if button is pressed, any object with the object property "cat", "dog", or "dino" will need to be filtered 
+  // select the corresponding buttons and assign them a variable
+  // add event listener of click to each button (separately)
+  // reset the petSring that manipulates the innerHTML of the document
+  // only add the HTML to petString if the type of pet matches with the button (aka only add HTML for dog types when dog button pressed)
+  //reset petString = innerHTML of the pet-info div
 
-  const dogButton = document.querySelector("#Dogs");
-  const catButton = document.querySelector("#Cats");
-  const dinoButton = document.querySelector("#Dinosaurs");
-  const unFilter = document.querySelector("#All-pets");
+  // const dogButton = document.querySelector("#Dogs");
+  // const catButton = document.querySelector("#Cats");
+  // const dinoButton = document.querySelector("#Dinosaurs");
+  // const unFilter = document.querySelector("#All-pets");
 
-  dogButton.addEventListener("click", function() {
-    petString = "";
-    for (let item of pets) {
-      if (item.type === "dog") {
-        petString += `<div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <img src="${item.imageUrl}">
-          <h5 class="card-title">${item.name}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-          <p class="card-text">${item.specialSkill}</p>
-        </div>
-      </div>`;
-      }
-    } targetingPetInfo.innerHTML = petString;
+  //   dogButton.addEventListener("click", function() {
+//     petString = "";
+//     for (let item of pets) {
+//       if (item.type === "dog") {
+//         petString += `<div class="card" style="width: 18rem;">
+//         <div class="card-body">
+//           <img src="${item.imageUrl}">
+//           <h5 class="card-title">${item.name}</h5>
+//           <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+//           <p class="card-text">${item.specialSkill}</p>
+//         </div>
+//       </div>`;
+//       }
+//     } targetingPetInfo.innerHTML = petString;
+//   }
+// );
+
+// catButton.addEventListener("click", function() {
+//   petString = "";
+//   for (let item of pets) {
+//     if (item.type === "cat") {
+//       petString += `<div class="card" style="width: 18rem;">
+//       <div class="card-body">
+//         <img src="${item.imageUrl}">
+//         <h5 class="card-title">${item.name}</h5>
+//         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+//         <p class="card-text">${item.specialSkill}</p>
+//       </div>
+//     </div>`;
+//     }
+//   } targetingPetInfo.innerHTML = petString;
+// }
+// );
+
+// dinoButton.addEventListener("click", function() {
+//   petString = "";
+//   for (let item of pets) {
+//     if (item.type === "dino") {
+//       petString += `<div class="card" style="width: 18rem;">
+//       <div class="card-body">
+//         <img src="${item.imageUrl}">
+//         <h5 class="card-title">${item.name}</h5>
+//         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+//         <p class="card-text">${item.specialSkill}</p>
+//       </div>
+//     </div>`;
+//     }
+//   } targetingPetInfo.innerHTML = petString;
+// }
+// );
+
+// unFilter.addEventListener("click", function() {
+//   petString = "";
+//   for (let item of pets) {
+//     if (item.type) {
+//       petString += `<div class="card" style="width: 18rem;">
+//       <div class="card-body">
+//         <img src="${item.imageUrl}">
+//         <h5 class="card-title">${item.name}</h5>
+//         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+//         <p class="card-text">${item.specialSkill}</p>
+//       </div>
+//     </div>`;
+//     }
+//   } targetingPetInfo.innerHTML = petString;
+// }
+// );
+// --------------------- TRYING TO FOLLOW INSTRUCTOR WAY OF DOING IT -----------------------
+  // try to use querySelectorAll to filter pets and event.target 
+  // grab all buttons - assign to filterButtons variable
+  //  add one event listener to all buttons - need to use forEach
+  // filter what to add to innerHTML by event.target.id in an if-else statement
+
+const filterButtons = document.querySelectorAll("button");
+
+// handleClick function
+// for each button, for each id of the target button natches that animal type, return that animal types cards in the HTML
+const handleClick = function(event) {
+  if (event.target.id === "Dogs") {
+    showCards(dogArray);
+  } else if (event.target.id === "Cats") {
+    showCards(catArray);
+  } else if (event.target.id === "Dinosaurs") {
+    showCards(dinoArray);
+  } else {
+    showCards(pets);
   }
-);
+}
 
-catButton.addEventListener("click", function() {
-  petString = "";
-  for (let item of pets) {
-    if (item.type === "cat") {
-      petString += `<div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <img src="${item.imageUrl}">
-        <h5 class="card-title">${item.name}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-        <p class="card-text">${item.specialSkill}</p>
-      </div>
-    </div>`;
+  // Handle button click
+  filterButtons.forEach(button =>
+    button.addEventListener("click", handleClick)
+  );
+  
+// Create filtering function for pet types that pushes same type objects into array
+const filterPets = function(animalType) {
+  animalArray = [];
+  for (const item of pets) {
+    if (item.type === animalType) {
+      animalArray.push(item);
     }
+  } return animalArray;
+}
+
+//Initialize arrays for all pet types
+const dogArray = filterPets("dog");
+const catArray = filterPets("cat");
+const dinoArray = filterPets("dino");
+
+// function to recieve array of cards from either cat, dog, or dino array
+const showCards = function(array) {
+  petString = "";
+  for (let item of array) {
+      petString += `<div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <img src="${item.imageUrl}">
+              <h5 class="card-title">${item.name}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+              <p class="card-text">${item.specialSkill}</p>
+            </div>
+          </div>`;
   } targetingPetInfo.innerHTML = petString;
 }
-);
-
-dinoButton.addEventListener("click", function() {
-  petString = "";
-  for (let item of pets) {
-    if (item.type === "dino") {
-      petString += `<div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <img src="${item.imageUrl}">
-        <h5 class="card-title">${item.name}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-        <p class="card-text">${item.specialSkill}</p>
-      </div>
-    </div>`;
-    }
-  } targetingPetInfo.innerHTML = petString;
-}
-);
-
-unFilter.addEventListener("click", function() {
-  petString = "";
-  for (let item of pets) {
-    if (item.type) {
-      petString += `<div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <img src="${item.imageUrl}">
-        <h5 class="card-title">${item.name}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-        <p class="card-text">${item.specialSkill}</p>
-      </div>
-    </div>`;
-    }
-  } targetingPetInfo.innerHTML = petString;
-}
-);
