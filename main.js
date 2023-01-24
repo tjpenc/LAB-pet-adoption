@@ -253,6 +253,7 @@ const pets = [
         <h5 class="card-title">${item.name}</h5>
         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
         <p class="card-text">${item.specialSkill}</p>
+        <button id="delete--${item.id}">Delete</button>
       </div>
     </div>`;
   }
@@ -266,11 +267,11 @@ const pets = [
   // filter what to add to innerHTML by event.target.id in an if-else statement
 
   
-const filterButtons = document.querySelectorAll("button");
+const filterButtons = document.querySelectorAll(".filter-button");
 
 // handleClick function
 // for each button, for each id of the target button natches that animal type, return that animal types cards in the HTML
-const handleClick = function(event) {
+const handleClickFilters = function(event) {
   if (event.target.id === "Dogs") {
     showCards(dogArray);
   } else if (event.target.id === "Cats") {
@@ -284,7 +285,7 @@ const handleClick = function(event) {
 
   // Handle button click
   filterButtons.forEach(button =>
-    button.addEventListener("click", handleClick)
+    button.addEventListener("click", handleClickFilters)
   );
   
 // Create filtering function for pet types that pushes same type objects into array
@@ -312,88 +313,66 @@ const showCards = function(array) {
               <h5 class="card-title">${item.name}</h5>
               <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
               <p class="card-text">${item.specialSkill}</p>
+              <button id="delete--${item.id}">Delete</button>
             </div>
           </div>`;
   } targetingPetInfo.innerHTML = petString;
 }
 
-// CREATING PET FILTERS - My initial way
-  // if button is pressed, any object with the object property "cat", "dog", or "dino" will need to be filtered 
-  // select the corresponding buttons and assign them a variable
-  // add event listener of click to each button (separately)
-  // reset the petSring that manipulates the innerHTML of the document
-  // only add the HTML to petString if the type of pet matches with the button (aka only add HTML for dog types when dog button pressed)
-  //reset petString = innerHTML of the pet-info div
+// ------ CREATING SUBMISSION FORM FUNCTIONALITY -------
+const createPet = function(event) {
+// prevent default
+event.preventDefault();
 
-  // const dogButton = document.querySelector("#Dogs");
-  // const catButton = document.querySelector("#Cats");
-  // const dinoButton = document.querySelector("#Dinosaurs");
-  // const unFilter = document.querySelector("#All-pets");
+// initialize the HTML into variables
+const petName = document.querySelector("#pet-name");
+const petType = document.querySelector("#pet-type");
+const petColor = document.querySelector("#pet-color");
+const petSkill = document.querySelector("#pet-skill");
+const petImg = document.querySelector("#pet-img");
 
-  //   dogButton.addEventListener("click", function() {
-//     petString = "";
-//     for (let item of pets) {
-//       if (item.type === "dog") {
-//         petString += `<div class="card" style="width: 18rem;">
-//         <div class="card-body">
-//           <img src="${item.imageUrl}">
-//           <h5 class="card-title">${item.name}</h5>
-//           <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-//           <p class="card-text">${item.specialSkill}</p>
-//         </div>
-//       </div>`;
-//       }
-//     } targetingPetInfo.innerHTML = petString;
-//   }
-// );
+// Create new pet object with the variables
+const newPetObject = {
+  id: pets.length + 1,
+  name: petName.value,
+  color: petColor.value,
+  specialSkill: petSkill.value,
+  type: petType.value,
+  imageUrl: petImg.value
+  };
 
-// catButton.addEventListener("click", function() {
-//   petString = "";
-//   for (let item of pets) {
-//     if (item.type === "cat") {
-//       petString += `<div class="card" style="width: 18rem;">
-//       <div class="card-body">
-//         <img src="${item.imageUrl}">
-//         <h5 class="card-title">${item.name}</h5>
-//         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-//         <p class="card-text">${item.specialSkill}</p>
-//       </div>
-//     </div>`;
-//     }
-//   } targetingPetInfo.innerHTML = petString;
-// }
-// );
+// Push new object onto array
+  pets.push(newPetObject);
 
-// dinoButton.addEventListener("click", function() {
-//   petString = "";
-//   for (let item of pets) {
-//     if (item.type === "dino") {
-//       petString += `<div class="card" style="width: 18rem;">
-//       <div class="card-body">
-//         <img src="${item.imageUrl}">
-//         <h5 class="card-title">${item.name}</h5>
-//         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-//         <p class="card-text">${item.specialSkill}</p>
-//       </div>
-//     </div>`;
-//     }
-//   } targetingPetInfo.innerHTML = petString;
-// }
-// );
+// update HTML with new pet
+  showCards(pets);
+};
 
-// unFilter.addEventListener("click", function() {
-//   petString = "";
-//   for (let item of pets) {
-//     if (item.type) {
-//       petString += `<div class="card" style="width: 18rem;">
-//       <div class="card-body">
-//         <img src="${item.imageUrl}">
-//         <h5 class="card-title">${item.name}</h5>
-//         <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-//         <p class="card-text">${item.specialSkill}</p>
-//       </div>
-//     </div>`;
-//     }
-//   } targetingPetInfo.innerHTML = petString;
-// }
-// );
+//give functionality to submit button
+const submitButton = document.querySelector("#submit-button");
+submitButton.addEventListener("click", createPet);
+
+
+//------- deleting a card -------
+
+// select area where all pet cards are
+const petCardArea = document.querySelector(".pet-info");
+
+// create click event listener for area with cards
+petCardArea.addEventListener("click", (event) => {
+  // make sure to only inclue click listener for things with id where delete is included
+  if (event.target.id.includes("delete")) {
+    // grab object id, split away from delete 
+    const [throwAway, objectId] = event.target.id.split("--");
+    // assign object id to the objects index
+    const index = pets.findIndex((event) => event.id === Number(objectId));
+    // use index to splice element from array
+    pets.splice(index, 1);
+    // return new array
+    showCards(pets);
+  };
+});
+
+// Make form appear on click
+const createPetButton = document.querySelector("#show-form");
+const formArea = document.querySelector("#form-area");
