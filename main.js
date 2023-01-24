@@ -245,20 +245,23 @@ const pets = [
 
 // loop through all of the pets, for each pet add the corresponding HTML to the petString string
 // make the innerHTML of the .pet-info equal to petString
-  let petString = "";
-  for (let item of pets) {
-    petString +=  `<div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <img src="${item.imageUrl}">
-        <h5 class="card-title">${item.name}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-        <p class="card-text">${item.specialSkill}</p>
-        <button id="delete--${item.id}">Delete</button>
-      </div>
-    </div>`;
-  }
-
-  targetingPetInfo.innerHTML = petString;
+// function to recieve array of cards from either cat, dog, or dino array
+const showCards = function(array) {
+  petString = "";
+  for (let item of array) {
+      petString += `<div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <img src="${item.imageUrl}">
+              <h5 class="card-title">${item.name}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
+              <p class="card-text">${item.specialSkill}</p>
+              <button id="delete--${item.id}">Delete</button>
+            </div>
+          </div>`;
+  } targetingPetInfo.innerHTML = petString;
+}
+//call initial array so the HTML loads with initial pets
+showCards(pets);
 
   // --------------------- TRYING TO FOLLOW INSTRUCTOR WAY OF DOING IT -----------------------
   // try to use querySelectorAll to filter pets and event.target 
@@ -303,22 +306,6 @@ const dogArray = filterPets("dog");
 const catArray = filterPets("cat");
 const dinoArray = filterPets("dino");
 
-// function to recieve array of cards from either cat, dog, or dino array
-const showCards = function(array) {
-  petString = "";
-  for (let item of array) {
-      petString += `<div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <img src="${item.imageUrl}">
-              <h5 class="card-title">${item.name}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">${item.color} ${item.type}</h6>
-              <p class="card-text">${item.specialSkill}</p>
-              <button id="delete--${item.id}">Delete</button>
-            </div>
-          </div>`;
-  } targetingPetInfo.innerHTML = petString;
-}
-
 // ------ CREATING SUBMISSION FORM FUNCTIONALITY -------
 const createPet = function(event) {
 // prevent default
@@ -333,7 +320,7 @@ const petImg = document.querySelector("#pet-img");
 
 // Create new pet object with the variables
 const newPetObject = {
-  id: pets.length + 1,
+  id: pets[pets.length - 1].id + 1,
   name: petName.value,
   color: petColor.value,
   specialSkill: petSkill.value,
@@ -364,6 +351,7 @@ petCardArea.addEventListener("click", (event) => {
   if (event.target.id.includes("delete")) {
     // grab object id, split away from delete 
     const [throwAway, objectId] = event.target.id.split("--");
+    console.log(event.target.id.split("--"));
     // assign object id to the objects index
     const index = pets.findIndex((event) => event.id === Number(objectId));
     // use index to splice element from array
