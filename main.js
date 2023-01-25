@@ -384,13 +384,16 @@ const toggleFormVisibility = function() {
   isFormVisible = true;
   } 
 };
-
+// make function that resets form values and toggles hidden class
 const clearForm = function() {
-  petName = "";
-  petType = "";
-  petColor = "";
-  petSkill = "";
-  petImg = ""; 
+  // old way of reset
+  // petName = "";
+  // petType = "";
+  // petColor = "";
+  // petSkill = "";
+  // petImg = ""; 
+  //Sheryls better way of reset
+  document.querySelector("#myForm").reset();
   formArea.classList.toggle("hidden");
   isFormVisible = false;
 }
@@ -404,3 +407,5 @@ createPetButton.addEventListener("click", toggleFormVisibility);
 //Added Cancel button to form, adding functionality below - just calls the clearForm function that submit does, without submitting
 const closeFormButton = document.querySelector("#close-form");
 closeFormButton.addEventListener("click", clearForm);
+
+// -----ADD FOCUS TO ELEMENTS YOU HOVER OVER

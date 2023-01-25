@@ -91,6 +91,10 @@ body {
   flex-basis: 50%;
 }
 
+.button-to-focus {
+  border: solid 10px white;
+}
+
 /* 54428E
   9A8C98
   028090
