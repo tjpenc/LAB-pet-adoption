@@ -17,14 +17,17 @@
     <button class="filter-button" id="All-pets">Show All Pets</button>
     <button class="create-form" id="show-form">Create Pet</button>
   </div>
-  <div id="form-area">
+  <div id="form-area" class="hidden">
     <form id="myForm">
       <input type="text" id="pet-name" placeholder="pet name">
       <input type="text" id="pet-type" placeholder="pet type">
       <input type="text" id="pet-color" placeholder="pet color">
       <input type="text" id="pet-skill" placeholder="pet skill">
       <input type="text" id="pet-img" placeholder="pet image link">
-      <button type="submit" id="submit-button" value="submit">Submit</button>
+      <div id="form-button-container">
+        <button type="submit" class="form-button" id="submit-button" value="submit">Submit</button>
+        <button type="button" class="form-button" id="close-form" valuse="cancel">Cancel</button>
+      </div>
     </form>
   </div>
   <div class="pet-info">

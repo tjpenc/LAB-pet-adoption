@@ -67,6 +67,30 @@ body {
   z-index: 2;
 }
 
+.hidden {
+  display: none;
+}
+
+#form-area {
+  position: fixed;
+  z-index: 2;
+  width: 100%; 
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  margin-bottom: auto;
+}
+
+#form-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-button {
+  flex-basis: 50%;
+}
+
 /* 54428E
   9A8C98
   028090
