@@ -273,7 +273,7 @@ showCards(pets);
 const filterButtons = document.querySelectorAll(".filter-button");
 
 // handleClick function
-// for each button, for each id of the target button natches that animal type, return that animal types cards in the HTML
+// for each button, for each id of the target button matches that animal type, return that animal types cards in the HTML
 const handleClickFilters = function(event) {
   if (event.target.id === "Dogs") {
     showCards(dogArray);
@@ -307,8 +307,10 @@ const catArray = filterPets("cat");
 const dinoArray = filterPets("dino");
 
 // ------ CREATING SUBMISSION FORM FUNCTIONALITY -------
+
+//make a new function to be called when submit is hit
 const createPet = function(event) {
-// prevent default
+// prevent default behavior because I am the captain now
 event.preventDefault();
 
 // initialize the HTML into variables
@@ -333,6 +335,8 @@ const newPetObject = {
 
 // update HTML with new pet
   showCards(pets);
+// toggle form visibility
+  clearForm();
 };
 
 //give functionality to submit button
@@ -340,27 +344,63 @@ const submitButton = document.querySelector("#submit-button");
 submitButton.addEventListener("click", createPet);
 
 
-//------- deleting a card -------
+//------- DELETING A CARD -------
 
 // select area where all pet cards are
 const petCardArea = document.querySelector(".pet-info");
 
 // create click event listener for area with cards
 petCardArea.addEventListener("click", (event) => {
-  // make sure to only inclue click listener for things with id where delete is included
+  // make sure to only do anything if click listener for things with id where delete is included
   if (event.target.id.includes("delete")) {
-    // grab object id, split away from delete 
+    // grab object id, split away from delete -- edited HTML to include this
     const [throwAway, objectId] = event.target.id.split("--");
     console.log(event.target.id.split("--"));
     // assign object id to the objects index
-    const index = pets.findIndex((event) => event.id === Number(objectId));
+    const deadPetIndex = pets.findIndex((event) => event.id === Number(objectId));
     // use index to splice element from array
-    pets.splice(index, 1);
+    pets.splice(deadPetIndex, 1);
     // return new array
     showCards(pets);
   };
 });
 
-// Make form appear on click
+// CREATE A FORM THAT APPEARS AND DISAPPEARS FROM BUTTON AND SUBMIT RESPECTIVELY AND OTHER FUNCTIONS
+
+//Initialize varibales
+
 const createPetButton = document.querySelector("#show-form");
 const formArea = document.querySelector("#form-area");
+
+// Easy toggle function for form area, initialize true/false if form is visible
+// Using the display:none CSS property so div does not take up any room on page
+// if form is visible create pet button will not toggle visibility
+// if form is submitted, create function to clear form and toggle visibility and set visible to false
+let isFormVisible = false;
+
+const toggleFormVisibility = function() {
+  if (isFormVisible === false) {
+  formArea.classList.toggle("hidden");
+  isFormVisible = true;
+  } 
+};
+
+const clearForm = function() {
+  petName = "";
+  petType = "";
+  petColor = "";
+  petSkill = "";
+  petImg = ""; 
+  formArea.classList.toggle("hidden");
+  isFormVisible = false;
+}
+// Go back and add form hiding into event listener for submit button
+
+createPetButton.addEventListener("click", toggleFormVisibility);
+
+//CSS position: fixed and increasing z index makes form scroll with the screen on top of all the other elements
+// Margin left and right auto and width 100% center page horizontally
+
+//Added Cancel button to form, adding functionality below - just calls the clearForm function that submit does, without submitting
+const closeFormButton = document.querySelector("#close-form");
+closeFormButton.addEventListener("click", clearForm);
