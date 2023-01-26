@@ -408,4 +408,51 @@ createPetButton.addEventListener("click", toggleFormVisibility);
 const closeFormButton = document.querySelector("#close-form");
 closeFormButton.addEventListener("click", clearForm);
 
+// ---------------------------- CREATE SEARCH BAR ----------------------------
+//make an input
+//make a search button
+//if a string typed into the search bar INCLUDES a string in the HTML show those divs
+const searchButton = document.querySelector("#search-button");
+const searchBar = document.querySelector("#searchbar");
+
+const searchPetDom = function() {
+  //get what has been typed in search bar, make it lowercase
+  let searchInput = searchBar.value;
+  searchInput = searchInput.toLowerCase();
+  searchInput = searchInput.trim();
+  //initialize array of DOM to render
+  const searchedArray = [];
+  //loop through other cards on the dom - if shares the text, push corresponding object into array
+  for (item of cards) {
+    const text = item.innerHTML.toLowerCase();
+    if (text.includes(searchInput)) {
+      //grab object associated with DOM text
+      console.log(text);
+    } 
+  } 
+};
+
+searchButton.addEventListener("click", searchPetDom);
+
 // -----ADD FOCUS TO ELEMENTS YOU HOVER OVER
+//when mouse moves over element blur everything except the element by adding filter:blur to body
+//when mouse is out of the element nothing is blurred
+
+const cards = document.querySelectorAll(".card");
+const body = document.querySelector("body");
+
+// cards.forEach(card => 
+//   card.addEventListener("mouseover", () => {
+//         body.classList.toggle("blur");
+//         console.log(body.classList);
+//       }
+//     )
+//   );
+
+//   cards.forEach(card => 
+//     card.addEventListener("mouseout", () => {
+//           body.classList.toggle("blur");
+//           console.log(body.classList);
+//         }
+//       )
+//     );
