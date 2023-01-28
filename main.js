@@ -408,4 +408,69 @@ createPetButton.addEventListener("click", toggleFormVisibility);
 const closeFormButton = document.querySelector("#close-form");
 closeFormButton.addEventListener("click", clearForm);
 
+// ---------------------------- CREATE SEARCH BAR ----------------------------
+//make an input
+//make a search button
+//if a string typed into the search bar INCLUDES a string in the HTML show those divs
+const searchButton = document.querySelector("#search-button");
+const searchBar = document.querySelector("#searchbar");
+
+const searchPetDom = function(event) {
+  //get what has been typed in search bar, make it lowercase
+  let searchInput = event.target.value;
+  
+  const searchResult = pets.filter(item => 
+    item.name.toLowerCase().includes(searchInput) ||
+    item.color.toLowerCase().includes(searchInput) ||
+    item.specialSkill.toLowerCase().includes(searchInput) ||
+    item.type.toLowerCase().includes(searchInput) 
+    )
+  
+  showCards(searchResult);
+}
+
+const searchWithButton = (event) => {
+  const searchInput = searchBar.value;
+  console.log(searchInput);
+  const searchResult = pets.filter(item => 
+    item.name.toLowerCase().includes(searchInput) ||
+    item.color.toLowerCase().includes(searchInput) ||
+    item.specialSkill.toLowerCase().includes(searchInput) ||
+    item.type.toLowerCase().includes(searchInput) 
+    )
+
+  showCards(searchResult);
+}
+
+//Add functionality to the search button, also add functionality if "Enter" is pressed
+searchButton.addEventListener("click", searchWithButton);
+
+searchBar.addEventListener("keypress", (event) => {
+  if (event.charCode === 13) {
+    searchWithButton();
+    }
+  }
+)
+
 // -----ADD FOCUS TO ELEMENTS YOU HOVER OVER
+//when mouse moves over element blur everything except the element by adding filter:blur to body
+//when mouse is out of the element nothing is blurred
+
+const cards = document.querySelectorAll(".card");
+const body = document.querySelector("body");
+
+// cards.forEach(card => 
+//   card.addEventListener("mouseover", () => {
+//         body.classList.toggle("blur");
+//         console.log(body.classList);
+//       }
+//     )
+//   );
+
+//   cards.forEach(card => 
+//     card.addEventListener("mouseout", () => {
+//           body.classList.toggle("blur");
+//           console.log(body.classList);
+//         }
+//       )
+//     );

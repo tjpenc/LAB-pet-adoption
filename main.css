@@ -95,6 +95,18 @@ body {
   border: solid 10px white;
 }
 
+.blur {
+  filter: blur(2px);
+}
+
+#search-div {
+  display: flex;
+  justify-content: center;
+}
+
+#search-button {
+  flex-basis: 5%;
+}
 /* 54428E
   9A8C98
   028090
