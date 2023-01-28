@@ -301,6 +301,16 @@ const filterPets = function(animalType) {
   } return animalArray;
 }
 
+// Better way to filter pets w .filter?
+// const filterPets2 = (animalType) => {
+//   const animalArray = pets.filter(item => 
+//     item.type === animalType
+//     ) 
+//     console.log(animalArray)
+//   }
+
+// filterPets2("dog");
+
 //Initialize arrays for all pet types
 const dogArray = filterPets("dog");
 const catArray = filterPets("cat");
