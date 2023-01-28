@@ -415,24 +415,42 @@ closeFormButton.addEventListener("click", clearForm);
 const searchButton = document.querySelector("#search-button");
 const searchBar = document.querySelector("#searchbar");
 
-const searchPetDom = function() {
+const searchPetDom = function(event) {
   //get what has been typed in search bar, make it lowercase
-  let searchInput = searchBar.value;
-  searchInput = searchInput.toLowerCase();
-  searchInput = searchInput.trim();
-  //initialize array of DOM to render
-  const searchedArray = [];
-  //loop through other cards on the dom - if shares the text, push corresponding object into array
-  for (item of cards) {
-    const text = item.innerHTML.toLowerCase();
-    if (text.includes(searchInput)) {
-      //grab object associated with DOM text
-      console.log(text);
-    } 
-  } 
-};
+  let searchInput = event.target.value;
+  
+  const searchResult = pets.filter(item => 
+    item.name.toLowerCase().includes(searchInput) ||
+    item.color.toLowerCase().includes(searchInput) ||
+    item.specialSkill.toLowerCase().includes(searchInput) ||
+    item.type.toLowerCase().includes(searchInput) 
+    )
+  
+  showCards(searchResult);
+}
 
-searchButton.addEventListener("click", searchPetDom);
+const searchWithButton = (event) => {
+  const searchInput = searchBar.value;
+  console.log(searchInput);
+  const searchResult = pets.filter(item => 
+    item.name.toLowerCase().includes(searchInput) ||
+    item.color.toLowerCase().includes(searchInput) ||
+    item.specialSkill.toLowerCase().includes(searchInput) ||
+    item.type.toLowerCase().includes(searchInput) 
+    )
+
+  showCards(searchResult);
+}
+
+//Add functionality to the search button, also add functionality if "Enter" is pressed
+searchButton.addEventListener("click", searchWithButton);
+
+searchBar.addEventListener("keypress", (event) => {
+  if (event.charCode === 13) {
+    searchWithButton();
+    }
+  }
+)
 
 // -----ADD FOCUS TO ELEMENTS YOU HOVER OVER
 //when mouse moves over element blur everything except the element by adding filter:blur to body
